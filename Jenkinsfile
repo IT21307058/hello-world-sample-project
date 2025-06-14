@@ -1,6 +1,11 @@
 pipeline {
 
     agent any
+
+    environment {
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+        IMAGE_NAME = 'isurupathumherath/hello-world:latest'
+    }
     
     stages {
         stage('Checkout') {
@@ -30,7 +35,17 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh "docker build -t java-tst-app:latest ."
+                    sh "docker build -t $IMAGE_NAME ."
+                }
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                        sh "docker push $IMAGE_NAME"
+                    }
                 }
             }
         }
