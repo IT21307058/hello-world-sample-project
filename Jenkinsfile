@@ -15,11 +15,11 @@ pipeline {
             }
         }
 
-        stage('install') {
-            steps {
-                sh "mvn install -DskipTests"
-            }
-        }
+        // stage('install') {
+        //     steps {
+        //         sh "mvn install -DskipTests"
+        //     }
+        // }
 
         stage('package') {
             steps {
