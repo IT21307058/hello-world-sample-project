@@ -40,10 +40,12 @@ public class HelloWorldApplication {
         return args -> {
             personRepository.save(new Person("John Doe", "123 Main St"));
             personRepository.save(new Person("Jane Steve", "456 Maple Ave"));
+            personRepository.save(new Person("Jane Steve11", "456 Maple Ave11"));
         };
     }
 }
 
+// hi bro
 @Entity
 class Person {
     @Id
