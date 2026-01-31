@@ -1,6 +1,10 @@
 pipeline {
 
     agent any
+
+    tools {
+        maven 'mvn'
+    }
     
     stages {
         stage('Checkout') {
@@ -15,9 +19,9 @@ pipeline {
             }
         }
 
-        stage('install') {
+        stage('test') {
             steps {
-                sh "mvn install -DskipTests"
+                sh "mvn test"
             }
         }
 
