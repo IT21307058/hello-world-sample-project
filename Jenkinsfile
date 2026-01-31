@@ -25,12 +25,24 @@ pipeline {
             }
         }
 
+
         stage('package') {
             steps {
                 sh "mvn package -DskipTests"
             }
         }
 
+        stage('build image') {
+            steps {
+                sh "docker build -t bhanuka222/cloudev-edu-jan:latest ."
+            }
+        }
+
+        stage('push image') {
+            steps {
+                sh "docker push bhanuka222/cloudev-edu-jan:latest"
+            }
+        }
     }
 }
 
