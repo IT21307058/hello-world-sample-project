@@ -1,10 +1,6 @@
 pipeline {
 
     agent any
-
-    tools{
-        maven 'mvn'
-    } // automatically install maven
     
     stages {
         stage('Checkout') {
