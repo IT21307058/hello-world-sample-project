@@ -5,6 +5,10 @@ pipeline {
     tools {
         maven 'mvn'
     }
+
+    environment {
+        IMAGE_NAME = "bhanuka222/cloudev-edu-jan:latest"
+    }
     
     stages {
         stage('Checkout') {
@@ -40,7 +44,13 @@ pipeline {
 
         stage('push image') {
             steps {
-                sh "docker push bhanuka222/cloudev-edu-jan:latest"
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_CREDENTIALS', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+
+                sh "docker push $IMAGE_NAME"
+                
+                sh "docker logout"
+                }
             }
         }
     }
